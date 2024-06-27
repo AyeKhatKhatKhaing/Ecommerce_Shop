@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-md-8">
+        <h2 class="fs-1">@if($formMode == "edit") Edit @else Create @endif %%modelName%% </h2>
+    </div>
+    <div class="col-md-4 text-end">
+        <div class="form-group">
+            <div class="form-group">
+                <div class="float-left">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>
+                        Save</button>
+                    <button type="button" class="btn btn-secondary cancel" onclick="window.location='{{ url('/%%routeGroup%%%%viewName%%') }}'"><i class="bi bi-x"
+                            aria-hidden="true"></i> Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" style="min-height: 0px;padding:0px;">
+                <ul class="nav nav-pills nav-fill">
+                    @foreach (config('locale.langs') as $lngcode => $lng)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $lngcode == 'en' ? 'active' : '' }} nav_link" data-bs-toggle="tab" href="#{{ strtolower($lngcode) }}-tab" style="border-radius: 7px 7px 1px 1px;">
+                                <span class="d-sm-none fs-5">{{ $lng }}</span>
+                                <span class="d-sm-block d-none fs-5">{{ $lng }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="card-body content-body">
+                <div class="tab-content">   
+                    @foreach (config('locale.langs') as $lng => $attr)
+                    <div class="tab-pane fade {{ $lng == 'en' ? 'active show' : '' }}"  id="{{ strtolower($lng) }}-tab">      
+                        %%formFieldsHtml%%
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Banner Image</h3>
+            </div>
+            <div class="card-body">
+                <div class="list-title mb-3">
+                    <label for="kt_ecommerce_add_product_store_template" class="form-label">
+                        <span style="color: #B5B5C3">Image Size( 371 x 218 )px</span>
+                    </label>
+                </div>
+                <div class="panel-block">
+                    <div class="form-group">
+                        <div id="holder-blog-image">
+                            @if(!empty($%%crudNameSingular%%->banner_image))
+                                <div class='lfmimage-container blog-imagelfmc0'>
+                                    {{isset($%%crudNameSingular%%) && $%%crudNameSingular%%->banner_image ? $%%crudNameSingular%%->banner_image : asset("backend/img/placeholder.png")}}
+                                    <img src="{{ asset($%%crudNameSingular%%->banner_image) }}" class='lfmimage w-100' style="height: 20rem;">
+                                    <div>
+                                        <button type="button" onclick="removeImage('blog-image',0)" class='btn btn-sm btn-danger w-100'>Remove</button>
+                                    </div>
+                                </div>
+                            @else
+                                <img src="{{ asset('backend/media/refmly/images/blank-image.svg') }}" class="img-thumbnail">
+                            @endif
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-btn">
+                                <a id="lfm-blog-image" data-input="blog-image" data-preview="holder-blog-image" class="btn btn-primary text-white">
+                                    <i class="bi bi-image-fill"></i>Choose
+                                </a>
+                            </span>
+                            <input id="blog-image" class="form-control" type="text" name="blog_image" value="{{isset($%%crudNameSingular%%->banner_image) ? $%%crudNameSingular%%->banner_image : ''}}">
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

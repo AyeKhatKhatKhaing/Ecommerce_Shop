@@ -1,0 +1,28 @@
+@extends('admin.layouts.master')
+@section('title', '%%modelName%%')
+@section('breadcrumb', '%%modelName%%')
+@section('breadcrumb-info', '%%modelName%%')
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row mx-1">
+                    @if ($errors->any())
+                        <x-errors :errors="$errors" />
+                    @endif
+                </div>
+
+                    {!! Form::model($%%crudNameSingular%%, [
+                        'method' => 'PATCH',
+                        'url' => ['/%%routeGroup%%%%viewName%%', $%%crudNameSingular%%->%%primaryKey%%],
+                        'class' => 'form-horizontal',
+                        'files' => true
+                    ]) !!}
+
+                    @include ('%%viewTemplateDir%%.form', ['formMode' => 'edit'])
+
+                    {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+@endsection
