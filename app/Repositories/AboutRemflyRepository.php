@@ -36,7 +36,7 @@ class AboutRemflyRepository implements AboutRemflyRepositoryInterface
         $requestData['meta_descriptions'] = $meta_descriptions;
 
         $aboutremfly = AboutRemfly::first();
-
+        
         if ($aboutremfly) {
             $aboutremfly->update($requestData);
         } else {
